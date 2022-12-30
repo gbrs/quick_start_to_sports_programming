@@ -16,27 +16,14 @@
 Выведите одно число - максимальное количество конфет, которое может собрать кузнечик.
 """
 
-
 N = int(input())
-# lst = [0] * (N + 5)
 lst = list(map(int, input().split()))
-lst.insert(0, 0)
-lst.extend([0] * 3)
+lst.insert(0, 0)  # место под лестницей, где сидит кузнечик
+lst.extend([0] * 3)  # на случай если задано N = 1-4 ступеньки, чтобы следующие 3 строки не поломались
 lst[2] = lst[1] + lst[2]
-lst[3] = max(lst[1], lst[2]) + lst[3]
-lst[4] = max(lst[2], lst[3]) + lst[4]
-for i in range(5, N + 1):
+lst[3] = max(lst[0], lst[2]) + lst[3]
+lst[4] = max(lst[1], lst[3]) + lst[4]
+for i in range(5, N + 1):  # даже не запустится при N < 5
     lst[i] = lst[i] + max(lst[i - 1], lst[i - 3], lst[i - 5])
 
 print(lst[N])
-
-
-'''
-N = int(input())
-lst = [0] * (N + 5)
-lst[5:] = list(map(int, input().split()))
-for i in range(5, N + 5):
-    lst[i] = lst[i] + max(lst[i - 1], lst[i - 3], lst[i - 5])
-
-print(lst[-1])
-'''
