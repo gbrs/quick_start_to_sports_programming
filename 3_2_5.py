@@ -16,11 +16,14 @@
 
 n, k = map(int, input().split())
 # псевдоначало списка для расчета суммы путей
-lst = [0] * k
-lst[k - 1] = 1
+lst = [0] * (k + 1)
+lst[-1] = 1
+sumk = 1
 for number in map(int, input()):
+    print(*lst)
     if not number:
-        lst.append(sum(lst[-k:]) % (10 ** 9 + 7))
+        sumk = (sumk - lst[-k-1] + lst[-1]) % (10 ** 9 + 7)
+        lst.append(sumk)
     else:
         lst.append(0)
 print(lst[-1])
