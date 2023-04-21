@@ -21,15 +21,18 @@ for i, number in enumerate(input().split()):
     previous += int(number)
     prefixes[i + 1] = previous
 mn, mx = prefixes[0], prefixes[1]
-mx_sum = 0
+mx_sum = prefixes[1]
 
 for prefix in prefixes[2:]:
-    if prefix > mx:
+    if mx_sum < 0 and prefix < 0 and prefix > mx_sum:
+        mx_sum = prefix
+        mn, mx = prefix - mx_sum, prefix  ## !!! хрень
+    elif prefix > mx:
         mx = prefix
-    if prefix < mn:
+    elif prefix < mn:
         if mx - mn > mx_sum:
             mx_sum = mx - mn
-        mn, mx = prefix, prefix
+        mn, mx = prefix, prefix  ## !!! а надо по другому?
 if mx - mn > mx_sum:
     mx_sum = mx - mn
 
